@@ -38,7 +38,7 @@ autostart = true
 script = ExtResource("2_opt7g")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.1, 0.1)
+motion_scale = Vector2(0.01, 0.01)
 motion_mirroring = Vector2(362, 0)
 
 [node name="sky" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
