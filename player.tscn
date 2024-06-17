@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://cig7r1qehkhja"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_8lpwr"]
+[ext_resource type="Texture2D" uid="uid://b76otw1vipxs3" path="res://flappy-bird-assets/sprites/bluebird-downflap.png" id="1_wbx6n"]
+[ext_resource type="Texture2D" uid="uid://ciy4kex72rq2m" path="res://flappy-bird-assets/sprites/bluebird-midflap.png" id="2_yh7rl"]
+[ext_resource type="Texture2D" uid="uid://dcg1nvq7ex14x" path="res://flappy-bird-assets/sprites/bluebird-upflap.png" id="3_ki2xm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ga2ly"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wbx6n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_yh7rl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ki2xm")
+}],
+"loop": true,
+"name": &"flappy",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0b0ac"]
+radius = 12.6
+
+[node name="Player" type="RigidBody2D" groups=["Player"]]
+position = Vector2(126, 105)
+script = ExtResource("1_8lpwr")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ga2ly")
+animation = &"flappy"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0b0ac")
+
+[node name="Detecta suelo" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detecta suelo"]
+shape = SubResource("CircleShape2D_0b0ac")
+
+[connection signal="body_entered" from="Detecta suelo" to="." method="_on_detecta_suelo_body_entered"]

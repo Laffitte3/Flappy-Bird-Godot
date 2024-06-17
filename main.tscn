@@ -1,0 +1,130 @@
+[gd_scene load_steps=16 format=3 uid="uid://ctyebhotlhbr5"]
+
+[ext_resource type="PackedScene" uid="uid://cig7r1qehkhja" path="res://player.tscn" id="1_gkneo"]
+[ext_resource type="Script" path="res://Game.gd" id="1_prghh"]
+[ext_resource type="Script" path="res://ParallaxBackground.gd" id="2_opt7g"]
+[ext_resource type="Texture2D" uid="uid://bp8ylueanynyk" path="res://flappy-bird-assets/sprites/base.png" id="4_k0kel"]
+[ext_resource type="Texture2D" uid="uid://cidgla3oqkmoa" path="res://MountainsLayers/sky.png" id="4_rn6tw"]
+[ext_resource type="FontFile" uid="uid://npefoxuc8g1y" path="res://flappy-bird-assets/Flappy-Bird.ttf" id="6_e0dv8"]
+[ext_resource type="Texture2D" uid="uid://bcnsdxg457gf4" path="res://MountainsLayers/far-mountains.png" id="6_oimss"]
+[ext_resource type="Texture2D" uid="uid://cub65x0y0ym76" path="res://MountainsLayers/mountains.png" id="7_usx34"]
+[ext_resource type="Texture2D" uid="uid://bn83we6gmhhvu" path="res://flappy-bird-assets/sprites/message.png" id="7_w7ubv"]
+[ext_resource type="Script" path="res://Message.gd" id="8_8ekse"]
+[ext_resource type="Texture2D" uid="uid://dxjs1s2ge2yl0" path="res://MountainsLayers/trees.png" id="8_nodx3"]
+[ext_resource type="Texture2D" uid="uid://de3hegqvsvx7t" path="res://flappy-bird-assets/sprites/gameover.png" id="9_4pord"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uolfb"]
+size = Vector2(405.25, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_151wj"]
+size = Vector2(401, 86)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fpmwu"]
+font = ExtResource("6_e0dv8")
+font_size = 80
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.921569)
+
+[node name="Game" type="Node"]
+script = ExtResource("1_prghh")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="player" parent="." instance=ExtResource("1_gkneo")]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("2_opt7g")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(362, 0)
+
+[node name="sky" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(240, 269)
+scale = Vector2(1.49531, 2.24167)
+texture = ExtResource("4_rn6tw")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(320, 0)
+
+[node name="farmountain" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2(96, 369)
+scale = Vector2(1.425, 1.40833)
+texture = ExtResource("6_oimss")
+
+[node name="farmountain2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2(311, 369)
+scale = Vector2(1.4375, 1.40833)
+texture = ExtResource("6_oimss")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.7, 0.7)
+motion_mirroring = Vector2(420, 0)
+
+[node name="mountain" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2(-16, 292)
+scale = Vector2(1.2625, 1)
+texture = ExtResource("7_usx34")
+centered = false
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(320, 0)
+
+[node name="trees" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2(-16, 298)
+texture = ExtResource("8_nodx3")
+centered = false
+
+[node name="trees2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2(216, 302)
+texture = ExtResource("8_nodx3")
+centered = false
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(362, 0)
+
+[node name="piso" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(194, 590)
+scale = Vector2(1.15476, 1)
+texture = ExtResource("4_k0kel")
+
+[node name="suelo" type="StaticBody2D" parent="." groups=["Obstaculos"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="suelo"]
+position = Vector2(186.375, 586)
+shape = SubResource("RectangleShape2D_uolfb")
+
+[node name="techo" type="StaticBody2D" parent="." groups=["Obstaculos"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="techo"]
+position = Vector2(190.5, -33)
+shape = SubResource("RectangleShape2D_151wj")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -30.0
+offset_top = 13.0
+offset_right = 115.0
+offset_bottom = 81.0
+grow_horizontal = 2
+text = "0"
+label_settings = SubResource("LabelSettings_fpmwu")
+
+[node name="Message" type="Sprite2D" parent="."]
+process_mode = 3
+z_index = 1
+position = Vector2(180, 352)
+texture = ExtResource("7_w7ubv")
+script = ExtResource("8_8ekse")
+
+[node name="Gameover" type="Sprite2D" parent="Message"]
+position = Vector2(3, -204)
+texture = ExtResource("9_4pord")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
